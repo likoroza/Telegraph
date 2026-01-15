@@ -2,7 +2,7 @@ int PADDLE_PIN = 2;
 int BUZZER_PIN = 11; 
 int LIGHT_PIN = 10;
 
-bool IS_BUZZER_ACTIVE = true;
+bool IS_BUZZER_ACTIVE = false;
 
 bool LIGHT_OUTPUT = true;
 bool SOUND_OUTPUT = true;
@@ -13,8 +13,9 @@ int time_at_state_start;
 bool is_measuring_pressed = false; 
 
 String currentCharacter;
+int currentCodeProgress = 0;
 
-
+String SETTINGS_MODE_CODE[] = {"...", ".", "-", "-", "..", "-.", "--.", "..."};
 
 void setup()
 {
@@ -82,4 +83,37 @@ void buzz(bool state) {
 void dealWithCharacter(String currentCharacter) {
     //TODO: Implement method
     Serial.println(currentCharacter);
+
+    if (currentCodeProgress == sizeof(SETTINGS_MODE_CODE)/ sizeof(SETTINGS_MODE_CODE[0]) -1) {
+        currentCodeProgress = 0;
+        settingsMode();
+        return;
+    }
+
+    if (SETTINGS_MODE_CODE[currentCodeProgress] == currentCharacter) {
+        currentCodeProgress++;
+        return;
+    }
+    currentCodeProgress = 0;
+}
+
+void settingsMode() {    
+    unsigned long lastBlinkTime;
+    bool ledState = true;
+
+    while (digitalRead(PADDLE_PIN)) // Button is not pressed
+    {
+        if (millis() - lastBlinkTime >= 500) {
+            ledState = !ledState;
+            digitalWrite(LIGHT_PIN, ledState);
+            lastBlinkTime = millis();
+        }
+        
+    }
+    // Button is pressed   
+    while (!digitalRead(PADDLE_PIN)) { /// Button is held
+        
+    }
+
+    // Button is released
 }
