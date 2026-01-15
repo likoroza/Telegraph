@@ -8,7 +8,7 @@ You will need:
 - An **Arduino UNO R3** (or a clone).
 - A **buzzer** (preferably passive)*.
 - An **LED***.
-- A **220Ω resisor** (R1).
+- A **220Ω resistor** (R1).
 - A **pushbutton**.
 
 *Optional.
