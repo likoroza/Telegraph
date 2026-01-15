@@ -6,10 +6,10 @@ This is a "telegraph" project used to communicate Morse Code between devices. Th
 # Components
 You will need:
 - An **Arduino UNO R3** (or a clone).
-- A ***passive* buzzer.***
-- An **LED.***
+- A **buzzer** (preferably passive)*.
+- An **LED***.
 - A **220Ω resisor** (R1).
-- A **pushbutton.**
+- A **pushbutton**.
 
 *Optional.
 
@@ -32,9 +32,10 @@ You will need:
 Flash `Telegraph.ino` on your Arduino.
 
 Before flashing, you may change:
-- `LIGHT_OUTPUT` - Should the led mirror your paddle?
-- `SOUND_OUTPUT` - Should the buzzer mirror your paddle?
-- `DASH_THRESHOLD` - How much milliseconds of pressing makes for a dash rather than a dot?
+- `IS_BUZZER_ACTIVE` - Is your buzzer active (true) or passive (false)? Defaults to false.
+- `LIGHT_OUTPUT` - Should the led mirror your paddle? Defaults to true.
+- `SOUND_OUTPUT` - Should the buzzer mirror your paddle? Defaults to true.
+- `DASH_THRESHOLD` - How much milliseconds of pressing makes for a dash rather than a dot? Defaults to 150.
 - `dealWithCharacter()` implemntation - What should the code do with the character once it finishes?
 
 Hope you enjoy! :3

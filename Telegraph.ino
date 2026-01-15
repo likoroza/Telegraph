@@ -2,14 +2,19 @@ int PADDLE_PIN = 2;
 int BUZZER_PIN = 11; 
 int LIGHT_PIN = 10;
 
+bool IS_BUZZER_ACTIVE = true;
+
 bool LIGHT_OUTPUT = true;
 bool SOUND_OUTPUT = true;
+
 int DASH_THRESHOLD = 150;
 
 int time_at_state_start;
 bool is_measuring_pressed = false; 
 
 String currentCharacter;
+
+
 
 void setup()
 {
@@ -44,7 +49,7 @@ void loop()
         if (is_measuring_pressed) {
 
             currentCharacter += stateTime < DASH_THRESHOLD ? "." : "-";
-            delay(1);
+            delay(5);
 
             is_measuring_pressed = false;
             time_at_state_start = millis();
@@ -60,6 +65,11 @@ void loop()
 }
 
 void buzz(bool state) {
+    if (IS_BUZZER_ACTIVE) {
+        digitalWrite(BUZZER_PIN, state);
+        return;
+    }
+
     if (state) {
         tone(BUZZER_PIN, 600);
     }
@@ -71,4 +81,5 @@ void buzz(bool state) {
 
 void dealWithCharacter(String currentCharacter) {
     //TODO: Implement method
+    Serial.println(currentCharacter);
 }
