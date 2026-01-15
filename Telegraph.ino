@@ -1,15 +1,27 @@
 int PADDLE_PIN = 2;
 int BUZZER_PIN = 11; 
 
+int start_press;
 
 void setup()
 {
-	pinMode(PADDLE_PIN, INPUT);
+	pinMode(PADDLE_PIN, INPUT_PULLUP);
     pinMode(BUZZER_PIN, OUTPUT);
-    Serial.begin(115200);
+    Serial.begin(9600);
 }
 
 void loop()
 {
-    digitalWrite(BUZZER_PIN, digitalRead(PADDLE_PIN));
+    bool padelState = !digitalRead(PADDLE_PIN);
+    buzz(padelState);
+}
+
+void buzz(bool state) {
+    if (state) {
+        tone(BUZZER_PIN, 600);
+    }
+
+    else {
+        noTone(BUZZER_PIN);
+    }
 }
