@@ -1,10 +1,10 @@
 int PADDLE_PIN = 2;
 int BUZZER_PIN = 11; 
-int LIGHT_PIN = 10;
+int LED_PIN = 10;
 
 bool IS_BUZZER_ACTIVE = false;
 
-bool LIGHT_OUTPUT = true;
+bool LED_OUTPUT = true;
 bool SOUND_OUTPUT = true;
 
 int DASH_THRESHOLD = 150;
@@ -21,7 +21,7 @@ void setup()
 {
 	pinMode(PADDLE_PIN, INPUT_PULLUP);
     pinMode(BUZZER_PIN, OUTPUT);
-    pinMode(LIGHT_PIN, OUTPUT);
+    pinMode(LED_PIN, OUTPUT);
     Serial.begin(9600);
 }
 
@@ -35,8 +35,8 @@ void loop()
     }
     
 
-    if (LIGHT_OUTPUT) {
-        digitalWrite(LIGHT_PIN, paddleState);
+    if (LED_OUTPUT) {
+        digitalWrite(LED_PIN, paddleState);
     }
 
     if (paddleState && !is_measuring_pressed) {
@@ -105,7 +105,7 @@ void settingsMode() {
     {
         if (millis() - lastBlinkTime >= 500) {
             ledState = !ledState;
-            digitalWrite(LIGHT_PIN, ledState);
+            digitalWrite(LED_PIN, ledState);
             lastBlinkTime = millis();
         }
         
