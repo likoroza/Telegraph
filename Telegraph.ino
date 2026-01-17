@@ -9,6 +9,10 @@ bool SOUND_OUTPUT = true;
 
 int DASH_THRESHOLD = 150;
 
+
+
+
+
 int time_at_state_start;
 bool is_measuring_pressed = false; 
 
@@ -23,6 +27,8 @@ void setup()
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(LED_PIN, OUTPUT);
     Serial.begin(9600);
+    
+    intro(1);
 }
 
 void loop()
@@ -116,4 +122,19 @@ void settingsMode() {
     }
 
     // Button is released
+}
+
+void intro(int speed) {
+    digitalWrite(LED_PIN, HIGH);
+    tone(BUZZER_PIN, 160*2, 1000 / speed);
+    delay(500 / speed);
+    tone(BUZZER_PIN, 180*2, 250 / speed);
+    delay(250 / speed);
+    tone(BUZZER_PIN, 190*2, 250 / speed);
+    delay(250 / speed);
+    tone(BUZZER_PIN, 180*2, 500 / speed);
+    delay(500 / speed);
+    tone(BUZZER_PIN, 240*2, 500 / speed);
+    delay(500 / speed);
+    digitalWrite(LED_PIN, LOW);
 }
