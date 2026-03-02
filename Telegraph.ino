@@ -1,17 +1,5 @@
-int PADDLE_PIN = 2;
-int BUZZER_PIN = 11; 
-int LED_PIN = 10;
-
-bool IS_BUZZER_ACTIVE = false;
-
-bool LED_OUTPUT = true;
-bool SOUND_OUTPUT = true;
-
-int DASH_THRESHOLD = 150;
-
-
-
-
+#include "config.h"
+#include <Arduino.h>
 
 int time_at_state_start;
 bool is_measuring_pressed = false; 
@@ -23,6 +11,7 @@ String SETTINGS_MODE_CODE[] = {"...", ".", "-", "-", "..", "-.", "--.", "..."};
 
 void setup()
 {
+    
 	pinMode(PADDLE_PIN, INPUT_PULLUP);
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(LED_PIN, OUTPUT);
@@ -33,8 +22,7 @@ void setup()
 
 void loop()
 {
-    bool paddleState = !digitalRead(PADDLE_PIN);
-    
+    bool paddleState = !digitalRead(PADDLE_PIN);    
     if (SOUND_OUTPUT)
     {
         buzz(paddleState);

@@ -1,7 +1,7 @@
 ## Telegraph
 
 # Inroduction
-This is a "telegraph" project used to communicate Morse Code between devices. **This is still just a demo.**
+This is a "telegraph" project used to communicate Morse Code between devices. **This is still just in develeopment.**
 
 # Components
 You will need:
@@ -31,7 +31,10 @@ You will need:
 
 Flash `Telegraph.ino` on your Arduino.
 
-Before flashing, you may change:
+Before flashing, you may change the constants in `config.h`, which control the following:
+- `PADDLE_PIN` - Which pin is your paddle (pushbutton) connected to? Defaults to Pin 2.
+- `BUZZER_PIN` - Which pin is your buzzer connected to? Defaults to Pin 11.
+- `LED_PIN` - Which pin is your LED connected to? Defaults to Pin 10.
 - `IS_BUZZER_ACTIVE` - Is your buzzer active (true) or passive (false)? Defaults to false.
 - `LED_OUTPUT` - Should the led mirror your paddle? Defaults to true.
 - `SOUND_OUTPUT` - Should the buzzer mirror your paddle? Defaults to true.
@@ -51,5 +54,4 @@ You can exit it by clicking your paddle once.
 
 > [!NOTE]
 > This mode is for future implementation, currently it only makes the led blink.
-
 Hope you enjoy! :3
