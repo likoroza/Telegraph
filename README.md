@@ -6,13 +6,10 @@ This is a "telegraph" project used to communicate Morse Code between devices. **
 # Components
 You will need:
 - An **Arduino UNO R3** (or a clone).
-- A **buzzer** (preferably passive)*.
-- An **LED***.
+- A **buzzer** (preferably passive).
+- An **LED**.
 - A **220Ω resistor** (R1).
 - A **pushbutton**.
-
-*Optional.
-
 # Setup
 **1. Setup the wiring:**
 
@@ -39,17 +36,16 @@ Before flashing, you may change the constants in `config.h`, which control the f
 - `LED_OUTPUT` - Should the led mirror your paddle? Defaults to true.
 - `SOUND_OUTPUT` - Should the buzzer mirror your paddle? Defaults to true.
 - `DASH_THRESHOLD` - How much milliseconds of pressing makes for a dash rather than a dot? Defaults to 150.
-- `dealWithCharacter()` implementation - What should the code do with the character once it finishes?
 
 
 # Usage
 
 ## Morsing
-To morse, click your paddle. Make a short click (under the `DASH_THRESHOLD`) to make a dot, and make a long click (above the `DASH_THRESHOLD`) to make a dash. Wait at least 3 times the `DASH_THRESHOLD` in order to seperate between characters. Wait at least 7 times the `DASH_THRESHOLD` to seperate between words.
+To morse, press your paddle. Press the paddle (shorter than the `DASH_THRESHOLD`) to make a dot, and hold it (longer than the `DASH_THRESHOLD`) to make a dash. Wait at least 3 times the `DASH_THRESHOLD` in order to seperate between characters. Wait at least 7 times the `DASH_THRESHOLD` to seperate between words.
 
 
 ## Settings Mode
-You can go into Settings Mode by morsing the word (SETTINGS).
+You can go into Settings Mode by morsing the word "SETTINGS".
 You can exit it by clicking your paddle once.
 
 > [!NOTE]
