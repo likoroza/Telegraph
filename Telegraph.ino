@@ -15,7 +15,7 @@ void setup()
 	pinMode(PADDLE_PIN, INPUT_PULLUP);
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(LED_PIN, OUTPUT);
-    Serial.begin(9600);
+    Serial.begin(115200);
     
     intro(1);
 }
@@ -97,6 +97,8 @@ void settingsMode() {
 
     while (digitalRead(PADDLE_PIN)) // Button is not pressed
     {
+        yield();
+
         if (millis() - lastBlinkTime >= 500) {
             ledState = !ledState;
             digitalWrite(LED_PIN, ledState);

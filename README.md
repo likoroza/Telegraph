@@ -5,7 +5,7 @@ This is a "telegraph" project used to communicate Morse Code between devices. **
 
 # Components
 You will need:
-- An **Arduino UNO R3** (or a clone).
+- An ESP8266.
 - A **buzzer** (preferably passive).
 - An **LED**.
 - A **220Ω resistor** (R1).
@@ -15,18 +15,18 @@ You will need:
 
 |Terminal 1|Terminal 2|
 |----------|----------|
-|Pushbutton terminal 1|Arduino GND|
-|Pushbutton terminal 2|Arduino D2 **(PADDLE_PIN)**|
-|Buzzer terminal 1|Arduino D11 **(BUZZER_PIN)**|
-|Buzzer terminal 2|Arduino GND|
-|LED Anode|Arduino D10 **(LED_PIN)**|
+|Pushbutton terminal 1|ESP8266 G|
+|Pushbutton terminal 2|ESP8266 D1 **(PADDLE_PIN)**|
+|Buzzer terminal 1|ESP8266 D7 **(BUZZER_PIN)**|
+|Buzzer terminal 2|ESP8266 G|
+|LED Anode|ESP8266 D6 **(LED_PIN)**|
 |R1 terminal 1|LED Cathode|
-|R1 terminal 2| Arduino GND|
+|R1 terminal 2| ESP8266 G|
 <hr>
 
 **2. Install the firmware:**
 
-Flash `Telegraph.ino` on your Arduino.
+Flash `Telegraph.ino` on your ESP8266.
 
 Before flashing, you may change the constants in `config.h`, which control the following:
 - `PADDLE_PIN` - Which pin is your paddle (pushbutton) connected to? Defaults to Pin 2.

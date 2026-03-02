@@ -1,13 +1,15 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-const int PADDLE_PIN = 2;
-const int BUZZER_PIN = 11; 
-const int LED_PIN = 10;
+#include <Arduino.h>
+
+const uint8_t PADDLE_PIN = D1;
+const uint8_t BUZZER_PIN = D7; 
+const uint8_t LED_PIN = D6;
 
 const bool IS_BUZZER_ACTIVE = false;
 
-const bool LED_OUTPUT = true;
+const bool LED_OUTPUT = false;
 const bool SOUND_OUTPUT = true;
 
 const unsigned long DASH_THRESHOLD = 150;
