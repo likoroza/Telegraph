@@ -49,5 +49,6 @@ You can go into Settings Mode by morsing the word "SETTINGS".
 You can exit it by clicking your paddle once.
 
 > [!NOTE]
-> This mode is for future implementation, currently it only makes the led blink.
-Hope you enjoy! :3
+> This mode is currently being worked on, there is just a placeholder for now
+
+Hope you enjoy :3

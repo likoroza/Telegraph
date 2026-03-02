@@ -1,8 +1,12 @@
 #include "config.h"
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
 
 int time_at_state_start;
-bool is_measuring_pressed = false; 
+bool is_measuring_pressed = false;
+
+ESP8266WebServer server(80);
 
 String currentCharacter;
 int currentCodeProgress = 0;
@@ -11,7 +15,6 @@ String SETTINGS_MODE_CODE[] = {"...", ".", "-", "-", "..", "-.", "--.", "..."};
 
 void setup()
 {
-    
 	pinMode(PADDLE_PIN, INPUT_PULLUP);
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(LED_PIN, OUTPUT);
@@ -91,9 +94,21 @@ void dealWithCharacter(String currentCharacter) {
     currentCodeProgress = 0;
 }
 
-void settingsMode() {    
+void handleRoot() {
+    server.send(200, "text/html", "<h1>Settings!</h1>");
+}
+
+void settingsMode() { 
     unsigned long lastBlinkTime;
     bool ledState = true;
+
+    WiFi.softAP("Telegraph");
+
+    server.on("/", handleRoot);
+    
+    server.begin();
+
+    
 
     while (digitalRead(PADDLE_PIN)) // Button is not pressed
     {
@@ -104,7 +119,8 @@ void settingsMode() {
             digitalWrite(LED_PIN, ledState);
             lastBlinkTime = millis();
         }
-        
+
+        server.handleClient();
     }
     // Button is pressed   
     while (!digitalRead(PADDLE_PIN)) { /// Button is held
@@ -112,6 +128,8 @@ void settingsMode() {
     }
 
     // Button is released
+    WiFi.softAPdisconnect(true);
+    server.stop();
 }
 
 void intro(int speed) {

@@ -9,7 +9,7 @@ const uint8_t LED_PIN = D6;
 
 const bool IS_BUZZER_ACTIVE = false;
 
-const bool LED_OUTPUT = false;
+const bool LED_OUTPUT = true;
 const bool SOUND_OUTPUT = true;
 
 const unsigned long DASH_THRESHOLD = 150;
