@@ -3,6 +3,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <LittleFS.h>
+#include <ArduinoJson.h>    
 
 int time_at_state_start;
 bool is_measuring_pressed = false;
@@ -126,13 +127,31 @@ void handleSettingsRoot() {
     jsFile.close();
 }
 
-void handleSettingsJson() {
+void handleSettingsJsonGet() {
     File settingsFile = LittleFS.open("/settings.json", "r");
     if (!settingsFile) {
         server.send(404, "text/plain", "File not found!");
     }
 
     server.streamFile(settingsFile, "application/json");
+}
+
+void handleSettingsJsonPost() {
+    if (!server.hasArg("plain")) {
+        server.send(400, "text/plain", "There is no JSON file!");
+    }
+
+    File settingsFile = LittleFS.open("/settings.json", "w");
+    if (!settingsFile) {
+        Serial.println("No file!");
+        return;
+    }
+
+    const String body = server.arg("plain");
+    
+    settingsFile.print(body);
+
+    settingsFile.close();
 }
 
 void settingsMode() { 
@@ -142,7 +161,8 @@ void settingsMode() {
     WiFi.softAP("Telegraph");
 
     server.on("/", handleSettingsRoot);
-    server.on("/settings", handleSettingsJson);
+    server.on("/settings", HTTP_GET, handleSettingsJsonGet);
+    server.on("/settings", HTTP_POST, handleSettingsJsonPost);
     
     server.begin();
 
@@ -168,6 +188,10 @@ void settingsMode() {
     // Button is released
     WiFi.softAPdisconnect(true);
     server.stop();
+}
+
+void updateConfig() {
+
 }
 
 void intro(int speed) {

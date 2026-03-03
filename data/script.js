@@ -1,17 +1,19 @@
 const form = document.getElementById("form");
 
+let currentSettings;
+
 async function main() {
     const response = await fetch("/settings");
-    const data = await response.json();
+    currentSettings = await response.json();
 
-    form.led_output.checked = data["led_output"];
-    form.sound_output.checked = data["sound_output"];
-    form.dash_threshold.value = data["data_threshold"];
+    form.led_output.checked = currentSettings["led_output"];
+    form.sound_output.checked = currentSettings["sound_output"];
+    form.dash_threshold.value = currentSettings["dash_threshold"];
 }
 
 window.addEventListener("DOMContentLoaded", main);
 
-form.addEventListener('submit', function (event) {
+form.addEventListener('submit', async function (event) {
     event.preventDefault()
 
     const formObject = {
@@ -20,7 +22,25 @@ form.addEventListener('submit', function (event) {
         dash_threshold: Number(form.dash_threshold.value)
     };
 
+
     const jsonString = JSON.stringify(formObject, null, 2);
 
-    console.log(jsonString)
+    if (
+        formObject.led_output === currentSettings.led_output &&
+        formObject.sound_output === currentSettings.sound_output &&
+        formObject.dash_threshold === currentSettings.dash_threshold
+    ) {
+        return;
+    }
+
+    currentSettings = formObject;
+
+    fetch("/settings", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: jsonString
     })
+})
