@@ -8,7 +8,6 @@ int time_at_state_start;
 bool is_measuring_pressed = false;
 
 ESP8266WebServer server(80);
-
 String currentCharacter;
 int currentCodeProgress = 0;
 
@@ -98,13 +97,22 @@ void dealWithCharacter(String currentCharacter) {
 }
 
 void handleSettingsRoot() {
-    File htmlFile = LittleFS.open("/settings.html", "r");
+    File htmlFile = LittleFS.open("/main.html", "r");
     if (!htmlFile) {
         server.send(404, "text/plain", "File not found!");
     }
 
     server.streamFile(htmlFile, "text/html");
     htmlFile.close();
+}
+
+void handleSettingsJson() {
+    File settingsFile = LittleFS.open("/settings.json", "r");
+    if (!settingsFile) {
+        server.send(404, "text/plain", "File not found!");
+    }
+
+    server.streamFile(settingsFile, "application/json");
 }
 
 void settingsMode() { 
@@ -114,6 +122,7 @@ void settingsMode() {
     WiFi.softAP("Telegraph");
 
     server.on("/", handleSettingsRoot);
+    server.on("/settings.json", handleSettingsJson);
     
     server.begin();
 

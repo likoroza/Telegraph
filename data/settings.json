@@ -1,0 +1,5 @@
+{
+  "led_output": true,
+  "sound_output": false,
+  "dash_threshold": 150
+}
