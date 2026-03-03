@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        h1 {
-            color: red;
-        }
-
-    </style>
+    <style>/*INSERT CSS CODE*/</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
@@ -32,24 +27,8 @@
             <input type="submit" value="Submit">
         </div>
     </form>
-    <script src="script.js">
-
-            const form = document.getElementById("form");
-            form.addEventListener('submit', function (event) {
-                event.preventDefault()
-
-                const formObject = {
-                    led_output: form.led_output.checked,
-                    sound_output: form.sound_output.checked,
-                    dash_threshold: Number(form.dash_threshold.value)
-                };
-
-
-                const jsonString = JSON.stringify(formObject, null, 2);
-
-                console.log(jsonString)
-            })
-
+    <script>
+            <!--INSERT JS CODE-->
     </script>
 </body>
-</html>`
+</html>

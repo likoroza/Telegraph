@@ -102,8 +102,28 @@ void handleSettingsRoot() {
         server.send(404, "text/plain", "File not found!");
     }
 
-    server.streamFile(htmlFile, "text/html");
+
+    File cssFile = LittleFS.open("/styles.css", "r");
+    if (!cssFile) {
+        Serial.println("CSS file not found!");
+    }
+
+
+    File jsFile = LittleFS.open("/script.js", "r");
+    if (!jsFile) {
+        Serial.println("JS file not found!");
+    }
+
+    String html = htmlFile.readString();
+
+    html.replace("/*INSERT CSS CODE*/", cssFile.readString());
+    html.replace("<!--INSERT JS CODE-->", jsFile.readString());
+
+    server.send(200, "text/html", html);
+
     htmlFile.close();
+    cssFile.close();
+    jsFile.close();
 }
 
 void handleSettingsJson() {
