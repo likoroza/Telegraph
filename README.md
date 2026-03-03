@@ -6,7 +6,7 @@ This is a "telegraph" project used to communicate Morse Code between devices. **
 # Components
 You will need:
 - An ESP8266.
-- A **buzzer** (preferably passive).
+- A **passive buzzer**.
 - An **LED**.
 - A **220Ω resistor** (R1).
 - A **pushbutton**.
@@ -27,29 +27,22 @@ You will need:
 **2. Install the firmware:**
 1. Flash the `data` folder on your ESP8266 using LittleFS. [I recommend to use this repository for that](https://github.com/earlephilhower/arduino-littlefs-upload).
 
-2. Change the constants in the `config.h` file to your liking. The constants control the following:
-Before flashing, you may change the constants in `config.h`, which control the following:
-- `PADDLE_PIN` - Which pin is your paddle (pushbutton) connected to? Defaults to Pin 2.
-- `BUZZER_PIN` - Which pin is your buzzer connected to? Defaults to Pin 11.
-- `LED_PIN` - Which pin is your LED connected to? Defaults to Pin 10.
-- `IS_BUZZER_ACTIVE` - Is your buzzer active (true) or passive (false)? Defaults to false.
-- `LED_OUTPUT` - Should the led mirror your paddle? Defaults to true.
-- `SOUND_OUTPUT` - Should the buzzer mirror your paddle? Defaults to true.
-- `DASH_THRESHOLD` - How much milliseconds of pressing makes for a dash rather than a dot? Defaults to 150.
-
 3. Flash `Telegraph.ino` on your ESP8266.
 
 # Usage
 
 ## Morsing
-To morse, press your paddle. Press the paddle (shorter than the `DASH_THRESHOLD`) to make a dot, and hold it (longer than the `DASH_THRESHOLD`) to make a dash. Wait at least 3 times the `DASH_THRESHOLD` in order to seperate between characters. Wait at least 7 times the `DASH_THRESHOLD` to seperate between words.
+To morse, press your paddle. Press the paddle (shorter than the `DASH_THRESHOLD`*) to make a dot, and hold it (longer than the `DASH_THRESHOLD`) to make a dash. Wait at least 3 times the `DASH_THRESHOLD` in order to seperate between characters. Wait at least 7 times the `DASH_THRESHOLD` to seperate between words.
 
+*Changeable in Settings Mode.
 
 ## Settings Mode
-You can go into Settings Mode by morsing the word "SETTINGS".
+You can go into Settings Mode by morsing the word "SETTINGS". Ther
 You can exit it by clicking your paddle once.
 
-> [!NOTE]
-> This mode is currently being worked on, there is just a placeholder for now
+There, you can change:
+- Led Output: Should the LED mirror the paddle?
+- Sound Output: Should the buzzer mirror the paddle?
+- Dash Threshold - When the paddle is held for shorter than this time, it is considered a dot. When held for longer, it's considered a dash.
 
 Hope you enjoy :3

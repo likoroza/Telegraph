@@ -5,6 +5,15 @@
 #include <LittleFS.h>
 #include <ArduinoJson.h>    
 
+const uint8_t PADDLE_PIN = D1;
+const uint8_t BUZZER_PIN = D7; 
+const uint8_t LED_PIN = D6;
+
+bool LED_OUTPUT;
+bool SOUND_OUTPUT;
+unsigned long DASH_THRESHOLD = 150;
+
+
 int time_at_state_start;
 bool is_measuring_pressed = false;
 
@@ -13,6 +22,28 @@ String currentCharacter;
 int currentCodeProgress = 0;
 
 String SETTINGS_MODE_CODE[] = {"...", ".", "-", "-", "..", "-.", "--.", "..."};
+
+void applySettings() {
+    File settingsFile = LittleFS.open("/settings.json", "r");
+    if (!settingsFile) {
+        Serial.println("JSON file not found!");
+    }
+
+    StaticJsonDocument<512> doc;
+
+
+    DeserializationError error = deserializeJson(doc, settingsFile);
+    if (error) {
+        Serial.println(error.c_str());
+        return;
+    }
+
+    settingsFile.close();
+
+    LED_OUTPUT = doc["led_output"];
+    SOUND_OUTPUT = doc["sound_output"];
+    DASH_THRESHOLD = doc["dash_threshold"];
+}
 
 void setup()
 {
@@ -24,6 +55,8 @@ void setup()
     intro(1);
 
     LittleFS.begin();
+
+    applySettings();
 }
 
 void loop()
@@ -66,11 +99,6 @@ void loop()
 }
 
 void buzz(bool state) {
-    if (IS_BUZZER_ACTIVE) {
-        digitalWrite(BUZZER_PIN, state);
-        return;
-    }
-
     if (state) {
         tone(BUZZER_PIN, 600);
     }
@@ -152,6 +180,8 @@ void handleSettingsJsonPost() {
     settingsFile.print(body);
 
     settingsFile.close();
+
+    applySettings();
 }
 
 void settingsMode() { 
@@ -188,6 +218,9 @@ void settingsMode() {
     // Button is released
     WiFi.softAPdisconnect(true);
     server.stop();
+
+    // Ensure LED is turned off
+    digitalWrite(LED_PIN, LOW);
 }
 
 void updateConfig() {
