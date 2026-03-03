@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <LittleFS.h>
 
 int time_at_state_start;
 bool is_measuring_pressed = false;
@@ -21,6 +22,8 @@ void setup()
     Serial.begin(115200);
     
     intro(1);
+
+    LittleFS.begin();
 }
 
 void loop()
@@ -94,8 +97,14 @@ void dealWithCharacter(String currentCharacter) {
     currentCodeProgress = 0;
 }
 
-void handleRoot() {
-    server.send(200, "text/html", "<h1>Settings!</h1>");
+void handleSettingsRoot() {
+    File htmlFile = LittleFS.open("/settings.html", "r");
+    if (!htmlFile) {
+        server.send(404, "text/plain", "File not found!");
+    }
+
+    server.streamFile(htmlFile, "text/html");
+    htmlFile.close();
 }
 
 void settingsMode() { 
@@ -104,7 +113,7 @@ void settingsMode() {
 
     WiFi.softAP("Telegraph");
 
-    server.on("/", handleRoot);
+    server.on("/", handleSettingsRoot);
     
     server.begin();
 

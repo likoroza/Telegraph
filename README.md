@@ -25,9 +25,9 @@ You will need:
 <hr>
 
 **2. Install the firmware:**
+1. Flash the `data` folder on your ESP8266 using LittleFS. [I recommend to use this repository for that](https://github.com/earlephilhower/arduino-littlefs-upload).
 
-Flash `Telegraph.ino` on your ESP8266.
-
+2. Change the constants in the `config.h` file to your liking. The constants control the following:
 Before flashing, you may change the constants in `config.h`, which control the following:
 - `PADDLE_PIN` - Which pin is your paddle (pushbutton) connected to? Defaults to Pin 2.
 - `BUZZER_PIN` - Which pin is your buzzer connected to? Defaults to Pin 11.
@@ -37,6 +37,7 @@ Before flashing, you may change the constants in `config.h`, which control the f
 - `SOUND_OUTPUT` - Should the buzzer mirror your paddle? Defaults to true.
 - `DASH_THRESHOLD` - How much milliseconds of pressing makes for a dash rather than a dot? Defaults to 150.
 
+3. Flash `Telegraph.ino` on your ESP8266.
 
 # Usage
 
