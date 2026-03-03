@@ -122,7 +122,7 @@ void settingsMode() {
     WiFi.softAP("Telegraph");
 
     server.on("/", handleSettingsRoot);
-    server.on("/settings.json", handleSettingsJson);
+    server.on("/settings", handleSettingsJson);
     
     server.begin();
 
